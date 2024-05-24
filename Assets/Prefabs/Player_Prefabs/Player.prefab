@@ -212,11 +212,11 @@ MonoBehaviour:
   health: 100
   shootingPoint: {fileID: 5714052050105227342}
   machinegunBulletPrefab: {fileID: 2041005199287824479, guid: 60883daf78c1af24b93384257992263d, type: 3}
-  machinegunBulletSpeed: 10
+  machinegunBulletSpeed: 15
   canShootMachinegun: 1
   machinegunShootCooldown: 0.2
   machinegunAmmo: 30
-  bazookaBulletPrefab: {fileID: 0}
-  bazookaBulletSpeed: 0
-  canShootBazooka: 0
-  bazookaShootCooldown: 0
+  bazookaBulletPrefab: {fileID: 6191188518428493601, guid: 47e64d8ff484748488da0dfe39db4bae, type: 3}
+  bazookaBulletSpeed: 9
+  canShootBazooka: 1
+  bazookaShootCooldown: 3

@@ -39,6 +39,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float bazookaBulletSpeed;
     [SerializeField] private bool canShootBazooka;
     [SerializeField] private float bazookaShootCooldown;
+    [SerializeField] private int bazookaAmmo;
 
     public static PlayerController Instance { get { return instance; } }
 
@@ -53,6 +54,7 @@ public class PlayerController : MonoBehaviour
         Move();
         GetMousePosition();
         MachineGun();
+        Bazooka();
     }
 
     private void FixedUpdate()
@@ -87,6 +89,7 @@ public class PlayerController : MonoBehaviour
             if (!canShootMachinegun) return;
             else
             {
+                
                 if (machinegunAmmo > 0)
                 {
                     GameObject playerMachinegunBullet = Instantiate(machinegunBulletPrefab);
@@ -108,6 +111,7 @@ public class PlayerController : MonoBehaviour
 
     public void AddMachinegunAmmo(int amount)
     {
+        if (amount > 30) amount = 30;
         machinegunAmmo += amount;
     }
 
@@ -115,7 +119,31 @@ public class PlayerController : MonoBehaviour
     {
         if(Input.GetButtonDown("Fire2"))
         {
+            if (!canShootBazooka) return;
+            else
+            {
+                if(bazookaAmmo > 0)
+                {
+                    GameObject playerBazookaBullet = Instantiate(bazookaBulletPrefab);
+                    playerBazookaBullet.transform.position = shootingPoint.transform.position;
 
+                    Rigidbody2D playerBazookaBulletRB2D = playerBazookaBullet.GetComponent<Rigidbody2D>();
+                    playerBazookaBulletRB2D.AddForce(shootingPoint.up * bazookaBulletSpeed, ForceMode2D.Impulse);
+
+                    bazookaAmmo--;
+                    canShootBazooka = false;
+
+                    Invoke(nameof(ResetBazooka), bazookaShootCooldown);
+                }
+            }
         }
     }
+
+    public void AddBazookaAmmo(int amount)
+    {
+        if (amount > 3) amount = 3;
+        bazookaAmmo += amount;
+    }
+
+    void ResetBazooka() { canShootBazooka = true; }
 }
